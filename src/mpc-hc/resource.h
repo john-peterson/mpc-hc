@@ -680,6 +680,8 @@
 #define ID_VIEW_CM_INTENT_SATURATION    24041
 #define ID_VIEW_CM_INTENT_ABSOLUTECOLORIMETRIC 24042
 #define ID_VIEW_HALFFLOATINGPOINTPROCESSING 24043
+#define ID_FILE_RECYCLE                 24044
+#define ID_FILE_DELETE                  24045
 #define ID_VIEW_TEARING_TEST            32769
 #define ID_SHADERS_TOGGLE               32770
 #define IDS_SHADERS_TOGGLE              32771
@@ -1483,6 +1485,8 @@
 #define IDS_RFS_COMPRESSED              41452
 #define IDS_RFS_ENCRYPTED               41453
 #define IDS_RFS_MISSING_VOLS            41454
+#define IDS_FILE_RECYCLE                41455
+#define IDS_FILE_DELETE                 41456
 
 // Next default values for new objects
 // 
