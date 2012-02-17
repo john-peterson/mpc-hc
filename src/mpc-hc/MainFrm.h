@@ -488,6 +488,7 @@ public:
     bool DoAfterPlaybackEvent();
     void ParseDirs(CAtlList<CString>& sl);
     bool SearchInDir(bool bDirForward, bool bLoop = false);
+    HRESULT FileDelete(CString file, bool recycle = true);
 
     virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
     virtual BOOL PreTranslateMessage(MSG* pMsg);
@@ -638,6 +639,8 @@ public:
     afx_msg void OnFileOpendevice();
     afx_msg void OnFileOpenCD(UINT nID);
     afx_msg void OnFileReopen();
+    afx_msg void OnFileRecycle();
+    afx_msg void OnFileDelete();
     afx_msg void OnDropFiles(HDROP hDropInfo); // no menu item
     afx_msg void OnFileSaveAs();
     afx_msg void OnUpdateFileSaveAs(CCmdUI* pCmdUI);

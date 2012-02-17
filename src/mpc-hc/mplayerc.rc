@@ -3300,6 +3300,12 @@ BEGIN
     IDS_RFS_MISSING_VOLS                "Couldn't find all archive volumes"
 END
 
+STRINGTABLE
+BEGIN
+    IDS_FILE_RECYCLE                    "Move to Recycle Bin"
+    IDS_FILE_DELETE                     "Delete from Disk"
+END
+
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 

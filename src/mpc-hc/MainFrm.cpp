@@ -244,6 +244,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
     ON_COMMAND_RANGE(ID_FILE_OPEN_CD_START, ID_FILE_OPEN_CD_END, OnFileOpenCD)
     ON_UPDATE_COMMAND_UI_RANGE(ID_FILE_OPEN_CD_START, ID_FILE_OPEN_CD_END, OnUpdateFileOpen)
     ON_COMMAND(ID_FILE_REOPEN, OnFileReopen)
+    ON_COMMAND(ID_FILE_RECYCLE, OnFileRecycle)
+    ON_COMMAND(ID_FILE_DELETE, OnFileDelete)
     ON_WM_DROPFILES()
     ON_COMMAND(ID_FILE_SAVE_COPY, OnFileSaveAs)
     ON_UPDATE_COMMAND_UI(ID_FILE_SAVE_COPY, OnUpdateFileSaveAs)
@@ -4435,6 +4437,26 @@ void CMainFrame::OnFileOpenCD(UINT nID)
             break;
         }
     }
+}
+
+void CMainFrame::OnFileRecycle()
+{
+    // check if a file is playing
+    if (GetPlaybackMode() != PM_FILE) {
+        return;
+    }
+
+    m_wndPlaylistBar.DeleteFileInPlaylist(m_wndPlaylistBar.m_pl.GetPos());
+}
+
+void CMainFrame::OnFileDelete()
+{
+    // check if a file is playing
+    if (GetPlaybackMode() != PM_FILE) {
+        return;
+    }
+
+    m_wndPlaylistBar.DeleteFileInPlaylist(m_wndPlaylistBar.m_pl.GetPos(), false);
 }
 
 void CMainFrame::OnFileReopen()
@@ -12225,6 +12247,22 @@ bool CMainFrame::SearchInDir(bool bDirForward, bool bLoop /*= false*/)
     OpenCurPlaylistItem();
 
     return true;
+}
+
+HRESULT CMainFrame::FileDelete(CString file, bool recycle)
+{
+    file.AppendChar('\0');
+    SHFILEOPSTRUCT fileOpStruct = {0};
+    fileOpStruct.hwnd = m_hWnd;
+    fileOpStruct.wFunc = FO_DELETE;
+    fileOpStruct.pFrom = file;
+    if (recycle) {
+        fileOpStruct.fFlags = FOF_ALLOWUNDO | FOF_WANTNUKEWARNING;
+    }
+    int hRes = SHFileOperation(&fileOpStruct);
+    if (fileOpStruct.fAnyOperationsAborted) { hRes = E_ABORT; }
+    TRACE(_T("Delete recycle=%d hRes=0x%08x, file=%s\n"), recycle, hRes, file);
+    return hRes;
 }
 
 void CMainFrame::DoTunerScan(TunerScanData* pTSD)

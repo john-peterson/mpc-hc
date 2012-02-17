@@ -1,6 +1,6 @@
 /*
  * (C) 2003-2006 Gabest
- * (C) 2006-2012 see Authors.txt
+ * (C) 2006-2013 see Authors.txt
  *
  * This file is part of MPC-HC.
  *
@@ -112,6 +112,7 @@ public:
     void SavePlaylist();
 
     bool SelectFileInPlaylist(LPCTSTR filename);
+    bool DeleteFileInPlaylist(POSITION pos, bool recycle = true);
 
 protected:
     virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
